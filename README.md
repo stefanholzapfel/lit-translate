@@ -4,7 +4,7 @@ A very basic and lightweight translation directive for LitElement
 <h1>Installation</h1>
 
 ```
-npm install lit-translate
+npm install @stefanholzapfel/lit-translate
 ```
 
 <h1>Initialize the service</h1>
