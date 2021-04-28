@@ -1,6 +1,6 @@
 import {TranslateDirective} from './translate.directive';
 
-export class TranslateService {
+class TranslateService {
     private static stringsLoader: StringsLoader;
     private static strings = new Map<string, Strings>();
     private static activeLanguage: string;
@@ -58,6 +58,8 @@ export class TranslateService {
         TranslateService.registeredDirectives.delete(directive);
     }
 }
+
+export { TranslateService };
 
 export type Interpolations = {
     [key: string]: string;

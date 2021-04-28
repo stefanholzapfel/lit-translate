@@ -1,7 +1,7 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
 import {Interpolations, TranslateService} from './translate.service';
 
-export class TranslateDirective extends AsyncDirective {
+class TranslateDirective extends AsyncDirective {
     private identifier;
     private interpolations;
 
@@ -28,5 +28,7 @@ export class TranslateDirective extends AsyncDirective {
         this.setValue(TranslateService.translate(this.identifier, this.interpolations));
     }
 }
+
+export { TranslateDirective };
 
 export const translate = directive(TranslateDirective);
