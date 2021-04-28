@@ -1,6 +1,6 @@
 {
   "name": "@stefanholzapfel/lit-translate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A lightweight translation directive for LitElement",
   "publishConfig": {
     "access": "public"
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "publish_npm": "tsc --build --clean && yarn publish"
+    "publish_npm": "tsc --build --clean && tsc && yarn publish"
   },
   "author": "Stefan Holzapfel",
   "license": "MIT",
@@ -25,5 +25,8 @@
   "types": "dist/index.d.ts",
   "main:": "dist/index.js",
   "module": "dist/index.js",
-  "files": ["dist", "src"]
+  "files": [
+    "dist",
+    "src"
+  ]
 }
