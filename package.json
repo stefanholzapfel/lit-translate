@@ -1,6 +1,6 @@
 {
   "name": "@stefanholzapfel/lit-translate",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A lightweight translation directive for LitElement",
   "publishConfig": {
     "access": "public"
