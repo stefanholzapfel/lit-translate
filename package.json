@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "publish_npm": "tsc && yarn publish"
+    "publish_npm": "tsc --build --clean && yarn publish"
   },
   "author": "Stefan Holzapfel",
   "license": "MIT",
