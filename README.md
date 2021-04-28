@@ -25,6 +25,7 @@ The init function is async and can be awaited if you want to avoid translation i
 <h1>Usage</h1>
 
 <h3>Change language:</h3>
+
 ```
 await TranslateService.use('en-GB');
 ```
@@ -78,6 +79,7 @@ Use as many interpolation values as you want. Just add them as properties to the
 
 
 <h3>Clear all cached Strings:</h3>
+
 ```
 TranslateService.clearStrings();
 ```
