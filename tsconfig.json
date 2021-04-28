@@ -9,11 +9,7 @@
     "experimentalDecorators": true,
     "outDir": "dist"
   },
-  "include": [
-    "*"
-  ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "node_modules"
   ]
 }

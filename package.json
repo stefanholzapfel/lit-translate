@@ -1,12 +1,11 @@
 {
   "name": "@stefanholzapfel/lit-translate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight translation directive for LitElement",
   "repository": {
     "type": "git",
     "url": "https://github.com/stefanholzapfel/lit-translate.git"
   },
-  "browser": "index.ts",
   "scripts": {
     "build": "tsc",
     "publish_npm": "tsc && yarn publish --access public"
@@ -21,6 +20,6 @@
   },
   "type": "module",
   "types": "dist/index.d.ts",
-  "main:": "dist/index.d.ts",
-  "files": ["dist"]
+  "main:": "dist/index.js",
+  "files": ["dist", "src"]
 }
