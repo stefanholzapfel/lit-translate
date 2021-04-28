@@ -1,5 +1,5 @@
 # lit-translate
-A very basic and lightweight translation directive for LitElement
+A very basic and lightweight translation directive for LitElement 2
 
 <h1>Installation</h1>
 
@@ -9,10 +9,13 @@ npm install @stefanholzapfel/lit-translate
 
 <h1>Initialize the service</h1>
 Before using the directive, register a "loader" with the service and set a language.
-The loader is just a function telling the translator how to load any specific language. It receives a language 
+
+The loader is a function telling the translator how to load any specific language. It receives a language 
 identifier (string) and must return a Strings object.
 
 ```
+import { TranslateService } from '@stefanholzapfel/lit-translate';
+
 TranslateService.init(
     language => {
         // load and return translations for language here (e.g. from JSON file)
@@ -32,7 +35,7 @@ await TranslateService.use('en-GB');
 
 <h3>Usage in lit-html:</h3>
 
-Use dot notation. For a Strings object like this returned from the loader:
+The directive accepts an identifier in dot notation. For a Strings object like this returned from the loader:
 ```
 {
     app: {
@@ -56,6 +59,7 @@ The directive will automatically listen for language changes and change accordin
 
 <h3>Interpolation:</h3>
 You can have dynamic parts in your translations. Just mark them with {{ name }} e.g.:
+
 ```
 {
     app: {
