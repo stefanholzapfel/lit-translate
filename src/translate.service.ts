@@ -6,12 +6,14 @@ class TranslateService {
     private static activeLanguage: string;
     private static registeredDirectives = new Set<TranslateDirective>();
 
-    public static async init(loader: StringsLoader, language: LanguageIdentifier) {
+    public static async init(loader: StringsLoader) {
         this.stringsLoader = loader;
-        await TranslateService.use(language);
     }
 
     public static async use(language: LanguageIdentifier): Promise<Strings> {
+        if (!TranslateService.stringsLoader) {
+            throw new Error('Call init first and set a loader!');
+        }
         let strings = TranslateService.strings.get(language);
         if (!strings) {
             strings = await TranslateService.stringsLoader(language);
