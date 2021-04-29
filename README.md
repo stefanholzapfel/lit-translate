@@ -8,6 +8,7 @@ npm install @stefanholzapfel/lit-translate
 ```
 
 <h1>Initialize the service</h1>
+
 Before using the directive register a "loader" with the service.
 
 The loader is an async function telling the translator how to load any specific language.
@@ -26,6 +27,7 @@ TranslateService.init(
 <h1>Usage</h1>
 
 <h3>Set language:</h3>
+
 Set the language to use with use().
 
 The function is async and can be awaited if you want to avoid translation identifiers flashing up in your app.
@@ -60,6 +62,7 @@ resolves to:
 The directive will automatically listen for language changes and change all translate's values accordingly.
 
 <h3>Interpolation:</h3>
+
 You can have dynamic parts in your translations. Just mark them with {{ name }} e.g.:
 
 ```
