@@ -6,7 +6,7 @@ class TranslateService {
     private static activeLanguage: string;
     private static registeredDirectives = new Set<TranslateDirective>();
 
-    public static async init(loader: StringsLoader) {
+    public static init(loader: StringsLoader) {
         this.stringsLoader = loader;
     }
 
