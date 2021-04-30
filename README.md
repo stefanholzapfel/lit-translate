@@ -1,5 +1,5 @@
 # lit-translate
-A very basic and lightweight translation directive for LitElement 2
+A very basic and lightweight translation directive for Lit 2
 
 <h1>Installation</h1>
 
