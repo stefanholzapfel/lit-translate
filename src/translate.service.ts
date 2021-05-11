@@ -12,7 +12,7 @@ class TranslateService {
 
     public static async use(language: LanguageIdentifier): Promise<Strings> {
         if (!TranslateService.stringsLoader) {
-            throw new Error('Call init first and set a loader!');
+            throw new Error('Lit-translate: Call init first and set a loader!');
         }
         let strings = TranslateService.strings.get(language);
         if (!strings) {
