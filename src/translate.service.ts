@@ -27,12 +27,11 @@ class TranslateService {
     }
 
     public static translate(identifier: string, interpolations: Interpolations): string {
-        const identifierArray = identifier.split('.');
         let strings: string | Strings = TranslateService.strings.get(TranslateService.activeLanguage);
+        const identifierArray = identifier.split('.');
         for (const segment of identifierArray) {
-            const subObj = strings[segment];
-            if (subObj) {
-                strings = subObj;
+            if (strings && strings.hasOwnProperty(segment)) {
+                strings = strings[segment];
             } else {
                 return identifier;
             }
