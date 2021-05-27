@@ -10,8 +10,8 @@
     "url": "https://github.com/stefanholzapfel/lit-translate.git"
   },
   "scripts": {
-    "build": "tsc --build --clean && tsc",
-    "publish_npm": "tsc --build --clean && tsc && yarn publish"
+    "build": "tsc -b --clean && tsc",
+    "publish_npm": "tsc -b --clean && tsc && yarn publish"
   },
   "author": "Stefan Holzapfel",
   "license": "MIT",
