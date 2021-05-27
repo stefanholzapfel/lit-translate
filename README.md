@@ -61,7 +61,7 @@ resolves to:
 
 The directive will automatically listen for language changes and change all translate's values accordingly.
 
-Use ``translateUnsafeHTML()`` if you want HTML in translations to be intepreted (otherwise same interface).
+Use ``translateUnsafeHTML()`` if you want HTML in translations to be interpreted (otherwise same interface).
 
 <h3>Interpolation:</h3>
 
