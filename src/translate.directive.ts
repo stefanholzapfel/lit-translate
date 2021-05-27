@@ -1,17 +1,18 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
 import {Interpolations, TranslateService} from './translate.service';
 import {noChange} from 'lit';
+import {DirectiveResult} from 'lit/directive';
 
 class TranslateDirective extends AsyncDirective {
-    private identifier;
-    private interpolations;
+    protected identifier;
+    protected interpolations;
 
     constructor(props) {
         super(props);
         TranslateService.connectDirective(this);
     }
 
-    render(identifier: string, interpolations?: Interpolations) {
+    render(identifier: string, interpolations?: Interpolations): string | symbol | DirectiveResult<any>  {
         if (this.identifier !== identifier || this.interpolationsChanged(interpolations)) {
             this.identifier = identifier;
             this.interpolations = { ...interpolations };
@@ -32,7 +33,7 @@ class TranslateDirective extends AsyncDirective {
         this.setValue(TranslateService.translate(this.identifier, this.interpolations));
     }
 
-    private interpolationsChanged(interpolations: Interpolations): boolean {
+    protected interpolationsChanged(interpolations: Interpolations): boolean {
         if (interpolations !== this.interpolations) {
             return true;
         }

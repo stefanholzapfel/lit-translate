@@ -61,6 +61,8 @@ resolves to:
 
 The directive will automatically listen for language changes and change all translate's values accordingly.
 
+Use ``translateUnsafeHTML()`` if you want HTML in translations to be intepreted (otherwise same interface).
+
 <h3>Interpolation:</h3>
 
 You can have dynamic parts in your translations. Just mark them with {{ name }} e.g.:
