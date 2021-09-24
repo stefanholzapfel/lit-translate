@@ -1,7 +1,7 @@
 import {directive} from 'lit/async-directive.js';
 import {Interpolations} from './translate.service';
 import {TranslateDirective} from './translate.directive';
-import { unsafeHTML } from 'lit/directives/unsafe-html';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 class TranslateUnsafeHTMLDirective extends TranslateDirective {
     render(identifier: string, interpolations?: Interpolations) {
