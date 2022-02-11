@@ -62,6 +62,7 @@ resolves to:
 The directive will automatically listen for language changes and change all translate's values accordingly.
 
 Use ``translateUnsafeHTML()`` if you want HTML in translations to be interpreted (otherwise same interface).
+Use ``translateUppercase()`` if you want the output in uppercase letters.
 
 <h3>Interpolation:</h3>
 
