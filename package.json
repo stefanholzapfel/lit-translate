@@ -1,6 +1,6 @@
 {
   "name": "@stefanholzapfel/lit-translate",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "A lightweight translation directive for Lit 2",
   "publishConfig": {
     "access": "public"
