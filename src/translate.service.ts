@@ -1,4 +1,5 @@
 import {TranslateDirective} from './translate.directive';
+import {DirectiveResult} from 'lit/directive';
 
 class TranslateService {
     private static stringsLoader: StringsLoader;
@@ -39,7 +40,7 @@ class TranslateService {
         if (typeof strings === 'string') {
             if (interpolations) {
                 for (const interpolation in interpolations) {
-                    strings = strings.replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), interpolations[interpolation]);
+                    strings = strings.replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), interpolations[interpolation].toString());
                 }
             }
             return strings;
@@ -63,7 +64,7 @@ class TranslateService {
 export { TranslateService };
 
 export type Interpolations = {
-    [key: string]: string;
+    [key: string]: string | DirectiveResult;
 }
 
 export type Strings = {
