@@ -1,6 +1,6 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
 import {Interpolations, TranslateService} from './translate.service';
-import {noChange} from 'lit';
+import {noChange, TemplateResult} from 'lit';
 import {DirectiveResult} from 'lit/directive';
 
 class TranslateDirective extends AsyncDirective {
@@ -12,7 +12,7 @@ class TranslateDirective extends AsyncDirective {
         TranslateService.connectDirective(this);
     }
 
-    render(identifier: string, interpolations?: Interpolations): string | symbol | DirectiveResult<any>  {
+    render(identifier: string, interpolations?: Interpolations): string | symbol | DirectiveResult | TemplateResult {
         if (this.identifier !== identifier || this.interpolationsChanged(interpolations)) {
             this.identifier = identifier;
             this.interpolations = { ...interpolations };

@@ -1,5 +1,9 @@
 import {TranslateDirective} from './translate.directive';
-import {DirectiveResult} from 'lit/directive';
+import {getDirectiveClass, isDirectiveResult, isTemplateResult} from 'lit/directive-helpers.js';
+import {html, TemplateResult} from 'lit';
+import {DirectiveResult} from 'lit-html/directive';
+
+const STRING_SEPARATOR = '__!!!LIT!!!__';
 
 class TranslateService {
     private static stringsLoader: StringsLoader;
@@ -27,7 +31,7 @@ class TranslateService {
         return strings;
     }
 
-    public static translate(identifier: string, interpolations: Interpolations): string {
+    public static translate(identifier: string, interpolations: Interpolations): string | TemplateResult {
         let strings: string | Strings = TranslateService.strings.get(TranslateService.activeLanguage);
         const identifierArray = identifier.split('.');
         for (const segment of identifierArray) {
@@ -38,14 +42,37 @@ class TranslateService {
             }
         }
         if (typeof strings === 'string') {
+            const templates = {};
             if (interpolations) {
                 for (const interpolation in interpolations) {
-                    strings = strings.replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), interpolations[interpolation].toString());
+                    let _interpolation = interpolations[interpolation];
+                    if (isTemplateResult(_interpolation) || isDirectiveResult(_interpolation)) {
+                        templates[interpolation] = _interpolation;
+                        _interpolation = `{{${interpolation}}}${STRING_SEPARATOR}`;
+                    } else if (typeof _interpolation !== 'string') throw new Error('Invalid type for interpolation provided!')
+                    strings = strings.replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), _interpolation as string);
                 }
+            }
+            if (!!Object.keys(templates).length) {
+                let _stringsAndTemplates = strings.split(STRING_SEPARATOR);
+                if (_stringsAndTemplates.length === 1) return strings;
+                for (let i = _stringsAndTemplates.length - 1; i >= 0; i--) {
+                    for (const interpolationKey in templates) {
+                        if (_stringsAndTemplates[i].endsWith(`{{${interpolationKey}}}`)) {
+                            _stringsAndTemplates[i] = _stringsAndTemplates[i].replace(`{{${interpolationKey}}}`, '');
+                            _stringsAndTemplates.splice(i + 1, 0, templates[interpolationKey]);
+                        }
+                    }
+                }
+                return html`${_stringsAndTemplates.filter(v => v !== '')}`;
             }
             return strings;
         }
         return identifier;
+    }
+
+    public static isTemplateResult(value: any): value is TemplateResult {
+        return getDirectiveClass(value) === TranslateDirective;
     }
 
     public static clearStrings() {
@@ -61,10 +88,10 @@ class TranslateService {
     }
 }
 
-export { TranslateService };
+export {TranslateService};
 
 export type Interpolations = {
-    [key: string]: string | DirectiveResult;
+    [key: string]: string | TemplateResult | DirectiveResult;
 }
 
 export type Strings = {

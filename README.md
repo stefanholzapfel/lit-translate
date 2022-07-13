@@ -86,7 +86,13 @@ resolves to:
 <span>TEST another test</span>
 ```
 
-Use as many interpolation values as you want. Just add them as properties to the interpolation object. 
+Use as many interpolation values as you want. Just add them as properties to the interpolation object.
+
+Interplolations can be strings, TemplateResults or DirectiveResults. That means you can e.g. nest translate directives
+in eachother: 
+```
+<span>translate('app.my_string', { test_var: translate('app.nested_string') })</span>
+```
 
 
 <h3>Clear all cached Strings:</h3>
@@ -94,3 +100,9 @@ Use as many interpolation values as you want. Just add them as properties to the
 ```
 TranslateService.clearStrings();
 ```
+
+<h1>Changelog</h1>
+Starts with version 3, please see commit history for earlier changes.
+
+<h3>v3.0.0</h3>
+- **Interpolations** can now take **TemplateResults** and **DirectiveResults** and not only strings. This change requires a major version change since the API for interpolations has changed
