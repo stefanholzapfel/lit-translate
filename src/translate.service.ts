@@ -31,7 +31,7 @@ class TranslateService {
         return strings;
     }
 
-    public static translate(identifier: string, interpolations: Interpolations): string | TemplateResult {
+    public static translate(identifier: string, interpolations?: Interpolations): string | TemplateResult {
         let strings: string | Strings = TranslateService.strings.get(TranslateService.activeLanguage);
         const identifierArray = identifier.split('.');
         for (const segment of identifierArray) {
