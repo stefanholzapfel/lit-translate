@@ -114,6 +114,6 @@ Starts with version 3, please see commit history for earlier changes.
 - Adapted directory cleanup in build scripts (Linux only)
 - Made interpolations optional in translate service
 
-<h4>v3.0.3</h4>
+<h4>v3.0.4</h4>
 - Upgraded Lit to 2.4.1
 
