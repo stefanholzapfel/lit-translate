@@ -106,3 +106,14 @@ Starts with version 3, please see commit history for earlier changes.
 
 <h3>v3.0.0</h3>
 - **Interpolations** can now take **TemplateResults** and **DirectiveResults** and not only strings. This change requires a major version change since the API for interpolations has changed
+
+<h4>v3.0.1</h4>
+- Upgraded Lit to 2.2.8
+
+<h4>v3.0.2</h4>
+- Adapted directory cleanup in build scripts (Linux only)
+- Made interpolations optional in translate service
+
+<h4>v3.0.3</h4>
+- Upgraded Lit to 2.4.1
+
