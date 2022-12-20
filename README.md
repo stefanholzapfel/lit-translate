@@ -117,3 +117,6 @@ Starts with version 3, please see commit history for earlier changes.
 <h4>v3.0.4</h4>
 - Upgraded Lit to 2.4.1
 
+<h4>v3.0.4</h4>
+- Upgraded Lit to 2.5.0 and Typescript to 4.9.4
+
