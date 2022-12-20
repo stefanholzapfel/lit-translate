@@ -1,5 +1,5 @@
 import {TranslateDirective} from './translate.directive';
-import {getDirectiveClass, isDirectiveResult, isTemplateResult} from 'lit/directive-helpers.js';
+import {isDirectiveResult, isTemplateResult} from 'lit/directive-helpers.js';
 import {html, TemplateResult} from 'lit';
 import {DirectiveResult} from 'lit-html/directive';
 
@@ -69,10 +69,6 @@ class TranslateService {
             return strings;
         }
         return identifier;
-    }
-
-    public static isTemplateResult(value: any): value is TemplateResult {
-        return getDirectiveClass(value) === TranslateDirective;
     }
 
     public static clearStrings() {

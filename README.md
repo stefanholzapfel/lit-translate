@@ -120,3 +120,6 @@ Starts with version 3, please see commit history for earlier changes.
 <h4>v3.0.4</h4>
 - Upgraded Lit to 2.5.0 and Typescript to 4.9.4
 
+<h3>v3.1.0</h3>
+- **isTemplateResult()** was removed from translate.service.ts since the naming didn't correctly reflect what it was doing and there is a proper 
+isTemplateResult() available in lit/directive-helpers. But since it was part of the public api this is a breaking change.
