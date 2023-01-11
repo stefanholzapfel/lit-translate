@@ -6,6 +6,7 @@ import {DirectiveResult} from 'lit/directive';
 class TranslateDirective extends AsyncDirective {
     protected identifier;
     protected interpolations;
+    protected doEvaluate = false;
 
     constructor(props) {
         super(props);
@@ -13,7 +14,8 @@ class TranslateDirective extends AsyncDirective {
     }
 
     render(identifier: string, interpolations?: Interpolations): string | symbol | DirectiveResult | TemplateResult {
-        if (this.identifier !== identifier || this.interpolationsChanged(interpolations)) {
+        if (this.identifier !== identifier || this.interpolationsChanged(interpolations) || this.doEvaluate) {
+            this.doEvaluate = false;
             this.identifier = identifier;
             this.interpolations = { ...interpolations };
             return TranslateService.translate(this.identifier, this.interpolations);
@@ -30,7 +32,8 @@ class TranslateDirective extends AsyncDirective {
     }
 
     public evaluate(): void {
-        this.setValue(TranslateService.translate(this.identifier, this.interpolations));
+        this.doEvaluate = true;
+        this.setValue(this.render(this.identifier, this.interpolations));
     }
 
     protected interpolationsChanged(interpolations: Interpolations): boolean {
