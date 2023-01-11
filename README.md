@@ -104,7 +104,7 @@ TranslateService.clearStrings();
 <h1>Changelog</h1>
 Starts with version 3, please see commit history for earlier changes.
 
-<h3>v3.0.0</h3>
+<h2>v3.0.0</h2>
 - **Interpolations** can now take **TemplateResults** and **DirectiveResults** and not only strings. This change requires a major version change since the API for interpolations has changed
 
 <h4>v3.0.1</h4>
@@ -124,5 +124,10 @@ Starts with version 3, please see commit history for earlier changes.
 - **isTemplateResult()** was removed from translate.service.ts since the naming didn't correctly reflect what it was doing and there is a proper 
 isTemplateResult() available in lit/directive-helpers. But since it was part of the public api this is a breaking change.
 
-<h3>v3.2.0</h3>
+Sorry for jumping over 3.2.0, that was by mistake
+
+<h3>v3.3.0</h3>
 - Added **translateLowercase** directive
+
+<h4>v3.3.1</h4>
+- Upgraded Lit to 2.6.0
