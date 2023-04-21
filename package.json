@@ -1,7 +1,7 @@
 {
   "name": "@stefanholzapfel/lit-translate",
   "version": "3.3.2",
-  "description": "A lightweight translation directive for Lit 2",
+  "description": "A lightweight translation directive for Lit",
   "publishConfig": {
     "access": "public"
   },
@@ -16,10 +16,10 @@
   "author": "Stefan Holzapfel",
   "license": "MIT",
   "dependencies": {
-    "lit": "^2.6.0"
+    "lit": "^2.7.2"
   },
   "devDependencies": {
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.4"
   },
   "type": "module",
   "types": "dist/index.d.ts",

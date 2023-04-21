@@ -28,3 +28,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.3.1]
 - Upgraded Lit to 2.6.0
+
+## [3.3.2]
+- Upgraded Lit to 2.7.2
