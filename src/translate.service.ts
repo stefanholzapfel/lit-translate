@@ -6,13 +6,21 @@ import {DirectiveResult} from 'lit-html/directive';
 const STRING_SEPARATOR = '__!!!LIT!!!__';
 
 class TranslateService {
-    private static stringsLoader: StringsLoader;
-    private static strings = new Map<string, Strings>();
-    private static activeLanguage: string;
-    private static registeredDirectives = new Set<TranslateDirective>();
+    private static set translateServiceData(data) { window['litTranslateServiceData'] = data; }
+    private static get translateServiceData(): LitTranslateServiceData { return window['litTranslateServiceData']; }
+    private static get stringsLoader(): StringsLoader { return this.translateServiceData.loader; };
+    private static set strings(strings) { window['litTranslateServiceData'].strings = strings; }
+    private static get strings() { return this.translateServiceData.strings; };
+    private static set activeLanguage(string) { window['litTranslateServiceData'].activeLanguage = string; }
+    private static get activeLanguage(): string { return this.translateServiceData.activeLanguage; };
+    private static get registeredDirectives() { return this.translateServiceData.registeredDirectives; };
 
     public static init(loader: StringsLoader) {
-        this.stringsLoader = loader;
+        TranslateService.translateServiceData = {
+            loader,
+            strings: new Map<string, Strings>(),
+            registeredDirectives: new Set<TranslateDirective>()
+        };
     }
 
     public static async use(language: LanguageIdentifier): Promise<Strings> {
@@ -82,6 +90,13 @@ class TranslateService {
     public static disconnectDirective(directive: TranslateDirective) {
         TranslateService.registeredDirectives.delete(directive);
     }
+}
+
+interface LitTranslateServiceData {
+    loader: StringsLoader;
+    strings: Map<string, Strings>;
+    activeLanguage?: string;
+    registeredDirectives: Set<TranslateDirective>;
 }
 
 export {TranslateService};

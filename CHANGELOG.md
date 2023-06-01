@@ -34,3 +34,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.3.3]
 - Chore: Upgraded Lit to 2.7.2
+
+## [3.3.4]
+- Fix: Make it work across different versions of TranslateService by writing to a window property
