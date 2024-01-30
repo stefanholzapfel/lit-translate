@@ -40,3 +40,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.3.5]
 - Chore: Upgraded Lit to 3.0.2
+
+## [3.3.6]
+- Chore: Upgraded Lit to 3.1.1
