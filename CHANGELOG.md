@@ -46,3 +46,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.3.7]
 - Chore: Upgrade deps
+
+## [3.3.7]
+- Chore: Upgrade Lit to 3.2.0
