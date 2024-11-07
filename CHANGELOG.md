@@ -53,3 +53,6 @@ Starts with version 3, please see commit history for earlier changes.
 ## [3.4.0]
 - Chore: Bump dependencies
 - Feat: Add translateObject service method & directive
+
+## [3.4.1]
+- Build: Upgrade target version
