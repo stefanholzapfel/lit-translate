@@ -13,14 +13,14 @@ Before using the directive register a "loader" with the service.
 
 The loader is an async function telling the translator how to load any specific language.
 
-It receives a language identifier (string) and must return a Strings object which is an arbitrarily deep nested object with only string values.
+It receives a language identifier (string) and must return a Strings object which is an arbitrarily deeply nested object with only string values.
 
 ```
 import { TranslateService } from '@stefanholzapfel/lit-translate';
 
 TranslateService.init(
     language => {
-        // load and return translations for language here (e.g. fetch from JSON file)
+        // load and return translations for language here (e.g. fetch from a JSON file)
     });
 ```
 
@@ -59,7 +59,7 @@ resolves to:
 <span>TEST</span>
 ```
 
-The directive will automatically listen for language changes and change all translate's values accordingly.
+The directive will automatically listen for language changes and change all directive values accordingly.
 
 Use ``translateUnsafeHTML()`` if you want HTML in translations to be interpreted (otherwise same interface).
 Use ``translateUppercase()`` if you want the output in uppercase letters.
@@ -88,8 +88,8 @@ resolves to:
 
 Use as many interpolation values as you want. Just add them as properties to the interpolation object.
 
-Interplolations can be strings, TemplateResults or DirectiveResults. That means you can e.g. nest translate directives
-in eachother: 
+Interpolations can be strings, TemplateResults or DirectiveResults. That means you can e.g. nest translate directives
+in each other: 
 ```
 <span>translate('app.my_string', { test_var: translate('app.nested_string') })</span>
 ```
@@ -100,3 +100,24 @@ in eachother:
 ```
 TranslateService.clearStrings();
 ```
+
+<h1>Optional: Directly translate from objects</h1>
+
+This library also offers a way to provide a translations object in-place and a directive that automatically renders the language currently active in the `TranslateService` from it:
+
+A sample translations object:
+
+```
+const myTranslations = {
+    'en-GB': 'Hi, I'm a translationsObject!',
+    'de-DE': 'Hallo, ich bin ein translationsObject!'
+};
+```
+
+Usage with the directive:
+
+```
+translateObject(myTranslations);
+```
+
+A fallback language identifier can be provided as second parameter to the directive.

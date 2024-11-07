@@ -2,6 +2,7 @@ import {TranslateDirective} from './translate.directive';
 import {isDirectiveResult, isTemplateResult} from 'lit/directive-helpers.js';
 import {html, TemplateResult} from 'lit';
 import {DirectiveResult} from 'lit-html/directive';
+import {TranslateObjectDirective} from "./translateObject.directive";
 
 const STRING_SEPARATOR = '__!!!LIT!!!__';
 
@@ -57,8 +58,10 @@ class TranslateService {
                     if (isTemplateResult(_interpolation) || isDirectiveResult(_interpolation)) {
                         templates[interpolation] = _interpolation;
                         _interpolation = `{{${interpolation}}}${STRING_SEPARATOR}`;
-                    } else if (typeof _interpolation !== 'string') throw new Error('Invalid type for interpolation provided!')
-                    strings = strings.replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), _interpolation as string);
+                    } else if (typeof _interpolation === 'string') {
+                        strings = (strings as string).replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), _interpolation);
+                    } else
+                        throw new Error('Invalid type for interpolation provided!')
                 }
             }
             if (!!Object.keys(templates).length) {
@@ -79,15 +82,21 @@ class TranslateService {
         return identifier;
     }
 
+    public static translateFromObject(translationsObject: TranslationsObject, fallbackLanguage?: string) {
+        return translationsObject[TranslateService.activeLanguage] ??
+            fallbackLanguage ?
+                translationsObject[fallbackLanguage] ?? '' : '';
+    }
+
     public static clearStrings() {
         TranslateService.strings = new Map<string, Strings>();
     }
 
-    public static connectDirective(directive: TranslateDirective) {
+    public static connectDirective(directive: TranslateDirective | TranslateObjectDirective) {
         TranslateService.registeredDirectives.add(directive);
     }
 
-    public static disconnectDirective(directive: TranslateDirective) {
+    public static disconnectDirective(directive: TranslateDirective | TranslateObjectDirective) {
         TranslateService.registeredDirectives.delete(directive);
     }
 }
@@ -96,7 +105,7 @@ interface LitTranslateServiceData {
     loader: StringsLoader;
     strings: Map<string, Strings>;
     activeLanguage?: string;
-    registeredDirectives: Set<TranslateDirective>;
+    registeredDirectives: Set<TranslateDirective | TranslateObjectDirective>;
 }
 
 export {TranslateService};
@@ -112,3 +121,7 @@ export type Strings = {
 export type StringsLoader = (language: LanguageIdentifier) => Promise<Strings>;
 
 export type LanguageIdentifier = string;
+
+export interface TranslationsObject {
+    [key: string]: string | DirectiveResult | TemplateResult;
+}
