@@ -56,3 +56,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.4.1]
 - Build: Upgrade target version
+
+## [3.4.1]
+- Fix: Fix condition in translateFromObject

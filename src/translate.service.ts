@@ -84,8 +84,8 @@ class TranslateService {
 
     public static translateFromObject(translationsObject: TranslationsObject, fallbackLanguage?: string) {
         return translationsObject[TranslateService.activeLanguage] ??
-            fallbackLanguage ?
-                translationsObject[fallbackLanguage] ?? '' : '';
+            (fallbackLanguage ?
+                translationsObject[fallbackLanguage] ?? '' : '');
     }
 
     public static clearStrings() {
