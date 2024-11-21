@@ -121,3 +121,5 @@ translateObject(myTranslations);
 ```
 
 A fallback language identifier can be provided as second parameter to the directive.
+
+Use ```translateObjectUnsafeHTML(myTranslations)``` to interpret HTML in translation strings.

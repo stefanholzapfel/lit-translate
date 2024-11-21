@@ -47,7 +47,7 @@ Starts with version 3, please see commit history for earlier changes.
 ## [3.3.7]
 - Chore: Upgrade deps
 
-## [3.3.7]
+## [3.3.8]
 - Chore: Upgrade Lit to 3.2.0
 
 ## [3.4.0]
@@ -57,5 +57,8 @@ Starts with version 3, please see commit history for earlier changes.
 ## [3.4.1]
 - Build: Upgrade target version
 
-## [3.4.1]
+## [3.4.2]
 - Fix: Fix condition in translateFromObject
+
+## [3.5.0]
+- Feat: Add translateObjectUnsafeHTML directive

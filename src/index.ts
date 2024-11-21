@@ -4,3 +4,4 @@ export * from './translate.service';
 export * from './translateUppercase.directive';
 export * from './translateLowercase.directive';
 export * from './translateObject.directive';
+export * from './translateObjectUnsafeHTML.directive';
