@@ -51,27 +51,26 @@ class TranslateService {
             }
         }
         if (typeof strings === 'string') {
-            const templates = {};
+            const templateTypeInterpolations = {};
             if (interpolations) {
-                for (const interpolation in interpolations) {
-                    let _interpolation = interpolations[interpolation];
+                for (const interpolationKey in interpolations) {
+                    let _interpolation = interpolations[interpolationKey];
                     if (isTemplateResult(_interpolation) || isDirectiveResult(_interpolation)) {
-                        templates[interpolation] = _interpolation;
-                        _interpolation = `{{${interpolation}}}${STRING_SEPARATOR}`;
-                    } else if (typeof _interpolation === 'string') {
-                        strings = (strings as string).replace(new RegExp(`{{\\s?${interpolation}\\s?}}`, 'gm'), _interpolation);
-                    } else
-                        throw new Error('Invalid type for interpolation provided!')
+                        templateTypeInterpolations[interpolationKey] = _interpolation;
+                        _interpolation = `{{${interpolationKey}}}${STRING_SEPARATOR}`;
+                    } else if (typeof _interpolation !== 'string')
+                        throw new Error('Invalid type for interpolation provided!');
+                    strings = (strings as string).replace(new RegExp(`{{\\s?${interpolationKey}\\s?}}`, 'gm'), _interpolation as string);
                 }
             }
-            if (!!Object.keys(templates).length) {
+            if (!!Object.keys(templateTypeInterpolations).length) {
                 let _stringsAndTemplates = strings.split(STRING_SEPARATOR);
                 if (_stringsAndTemplates.length === 1) return strings;
                 for (let i = _stringsAndTemplates.length - 1; i >= 0; i--) {
-                    for (const interpolationKey in templates) {
+                    for (const interpolationKey in templateTypeInterpolations) {
                         if (_stringsAndTemplates[i].endsWith(`{{${interpolationKey}}}`)) {
                             _stringsAndTemplates[i] = _stringsAndTemplates[i].replace(`{{${interpolationKey}}}`, '');
-                            _stringsAndTemplates.splice(i + 1, 0, templates[interpolationKey]);
+                            _stringsAndTemplates.splice(i + 1, 0, templateTypeInterpolations[interpolationKey]);
                         }
                     }
                 }

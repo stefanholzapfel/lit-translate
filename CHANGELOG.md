@@ -62,3 +62,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.5.0]
 - Feat: Add translateObjectUnsafeHTML directive
+
+## [3.5.1]
+- Fix: Restore broken replacement of template type interpolations
