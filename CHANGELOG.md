@@ -65,3 +65,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.5.1]
 - Fix: Restore broken replacement of template type interpolations
+
+## [3.5.2]
+- Chore(deps): Bump versions
