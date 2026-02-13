@@ -68,3 +68,6 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.5.2]
 - Chore(deps): Bump versions
+
+## [3.5.3]
+- Chore(deps): Bump versions
