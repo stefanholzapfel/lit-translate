@@ -1,6 +1,6 @@
 import {directive} from 'lit/async-directive.js';
-import {Interpolations} from './translate.service';
-import {TranslateDirective} from './translate.directive';
+import {Interpolations} from './translate.service.js';
+import {TranslateDirective} from './translate.directive.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 class TranslateUnsafeHTMLDirective extends TranslateDirective {

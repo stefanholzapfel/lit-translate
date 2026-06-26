@@ -1,8 +1,8 @@
-import {TranslateDirective} from './translate.directive';
+import {TranslateDirective} from './translate.directive.js';
 import {isDirectiveResult, isTemplateResult} from 'lit/directive-helpers.js';
 import {html, TemplateResult} from 'lit';
 import {DirectiveResult} from 'lit-html/directive';
-import {TranslateObjectDirective} from "./translateObject.directive";
+import {TranslateObjectDirective} from "./translateObject.directive.js";
 
 const STRING_SEPARATOR = '__!!!LIT!!!__';
 

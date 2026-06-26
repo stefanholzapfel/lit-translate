@@ -1,5 +1,5 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
-import {Interpolations, TranslateService} from './translate.service';
+import {Interpolations, TranslateService} from './translate.service.js';
 import {noChange, TemplateResult} from 'lit';
 import {DirectiveResult} from 'lit/directive';
 

@@ -1,5 +1,5 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
-import {TranslateService, TranslationsObject} from './translate.service';
+import {TranslateService, TranslationsObject} from './translate.service.js';
 import {noChange} from "lit";
 
 class TranslateObjectDirective extends AsyncDirective {

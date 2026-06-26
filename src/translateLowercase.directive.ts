@@ -1,6 +1,6 @@
 import {directive} from 'lit/async-directive.js';
-import {Interpolations} from './translate.service';
-import {TranslateDirective} from './translate.directive';
+import {Interpolations} from './translate.service.js';
+import {TranslateDirective} from './translate.directive.js';
 
 class TranslateLowercaseDirective extends TranslateDirective {
     render(identifier: string, interpolations?: Interpolations) {
