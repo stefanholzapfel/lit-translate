@@ -17,8 +17,8 @@ class TranslateDirective extends AsyncDirective {
         if (this.identifier !== identifier || this.interpolationsChanged(interpolations) || this.doEvaluate) {
             this.doEvaluate = false;
             this.identifier = identifier;
-            this.interpolations = { ...interpolations };
-            return TranslateService.translate(this.identifier, this.interpolations);
+            this.interpolations = interpolations ? { ...interpolations } : interpolations
+            return TranslateService.translate(this.identifier, interpolations);
         }
         return noChange;
     }
@@ -36,10 +36,11 @@ class TranslateDirective extends AsyncDirective {
         this.setValue(this.render(this.identifier, this.interpolations));
     }
 
-    protected interpolationsChanged(interpolations: Interpolations): boolean {
-        if (interpolations !== this.interpolations) {
-            return true;
-        }
+    protected interpolationsChanged(interpolations?: Interpolations): boolean {
+        if (!interpolations && !this.interpolations)
+            return false
+        if (!interpolations || !this.interpolations)
+            return true
         const ip1 = Object.keys(interpolations);
         const ip2 = Object.keys(this.interpolations);
         if (ip1.length !== ip2.length) {
