@@ -20,25 +20,35 @@ class TranslateService {
     private static get strings() { return this.translateServiceData.strings; };
     private static set activeLanguage(string) { window['litTranslateServiceData'].activeLanguage = string; }
     private static get activeLanguage(): string | undefined { return this.translateServiceData.activeLanguage; };
+    private static set activeFallbackLanguage(string) { window['litTranslateServiceData'].activeFallbackLanguage = string; }
+    private static get activeFallbackLanguage(): string | undefined { return this.translateServiceData.activeFallbackLanguage; };
+    private static get initFallbackLanguage(): string | undefined { return this.translateServiceData.fallbackLanguage; };
     private static get registeredDirectives() { return this.translateServiceData.registeredDirectives; };
 
-    public static init(loader: StringsLoader) {
+    public static init(loader: StringsLoader, fallbackLanguage?: LanguageIdentifier) {
         TranslateService.translateServiceData = {
             loader,
+            fallbackLanguage,
             strings: new Map<string, Strings>(),
             registeredDirectives: new Set<TranslateDirective>()
         };
     }
 
-    public static async use(language: LanguageIdentifier): Promise<Strings> {
+    public static async use(language: LanguageIdentifier, fallbackLanguage?: LanguageIdentifier): Promise<Strings> {
         if (!TranslateService.stringsLoader) {
             throw new Error('Lit-translate: Call init first and set a loader!');
         }
+        const effectiveFallbackLanguage = fallbackLanguage ?? TranslateService.initFallbackLanguage;
         let strings = TranslateService.strings.get(language);
         if (!strings) {
             strings = await TranslateService.stringsLoader(language);
         }
+        if (effectiveFallbackLanguage && effectiveFallbackLanguage !== language &&
+            !TranslateService.strings.has(effectiveFallbackLanguage)) {
+            TranslateService.strings.set(effectiveFallbackLanguage, await TranslateService.stringsLoader(effectiveFallbackLanguage));
+        }
         TranslateService.activeLanguage = language;
+        TranslateService.activeFallbackLanguage = effectiveFallbackLanguage;
         TranslateService.strings.set(language, strings);
         TranslateService.registeredDirectives.forEach(directive => {
             directive.evaluate();
@@ -46,16 +56,23 @@ class TranslateService {
         return strings;
     }
 
-    public static translate(identifier: string, interpolations?: Interpolations): string | TemplateResult {
-        const language = TranslateService.activeLanguage;
-        let strings: string | Strings | undefined = language !== undefined ? TranslateService.strings.get(language) : undefined;
-        const identifierArray = identifier.split('.');
+    private static lookupString(language: LanguageIdentifier | undefined, identifierArray: string[]): string | undefined {
+        if (language === undefined)
+            return undefined;
+        let strings: string | Strings | undefined = TranslateService.strings.get(language);
         for (const segment of identifierArray) {
             if (strings && typeof strings !== 'string' && strings.hasOwnProperty(segment))
                 strings = strings[segment];
             else
-                return identifier;
+                return undefined;
         }
+        return typeof strings === 'string' ? strings : undefined;
+    }
+
+    public static translate(identifier: string, interpolations?: Interpolations): string | TemplateResult {
+        const identifierArray = identifier.split('.');
+        let strings: string | undefined = TranslateService.lookupString(TranslateService.activeLanguage, identifierArray) ??
+            TranslateService.lookupString(TranslateService.activeFallbackLanguage, identifierArray);
         if (typeof strings === 'string') {
             const templateTypeInterpolations: Record<string, TemplateResult | DirectiveResult> = {};
             if (interpolations) {
@@ -94,9 +111,10 @@ class TranslateService {
 
     public static translateFromObject(translationsObject: TranslationsObject, fallbackLanguage?: string) {
         const language = TranslateService.activeLanguage;
+        const effectiveFallbackLanguage = fallbackLanguage ?? TranslateService.activeFallbackLanguage;
         return (language !== undefined ? translationsObject[language] : undefined) ??
-            (fallbackLanguage ?
-                translationsObject[fallbackLanguage] ?? '' : '');
+            (effectiveFallbackLanguage ?
+                translationsObject[effectiveFallbackLanguage] ?? '' : '');
     }
 
     public static clearStrings() {
@@ -114,8 +132,10 @@ class TranslateService {
 
 interface LitTranslateServiceData {
     loader: StringsLoader;
+    fallbackLanguage?: string;
     strings: Map<string, Strings>;
     activeLanguage?: string;
+    activeFallbackLanguage?: string;
     registeredDirectives: Set<TranslateDirective | TranslateObjectDirective>;
 }
 

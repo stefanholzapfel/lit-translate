@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it} from 'vitest';
 import {html} from 'lit';
 import {isTemplateResult} from 'lit/directive-helpers.js';
-import {TranslateService} from '../src/translate.service';
+import {Strings, TranslateService} from '../src';
 
 const strings = {
     app: {
@@ -52,6 +52,80 @@ describe('TranslateService.translate', () => {
     it('returns a TemplateResult when a template interpolation is given', () => {
         const res = TranslateService.translate('app.tpl', {slot: html`<b>x</b>`});
         expect(isTemplateResult(res)).toBe(true);
+    });
+});
+
+describe('fallback language', () => {
+    const languages: Record<string, Strings> = {
+        en: {app: {shared: 'Hello', onlyEn: 'Only English', greeting: 'Hello {{ name }}'}},
+        de: {app: {shared: 'Hallo'}},
+        fr: {app: {shared: 'Bonjour', onlyFr: 'Seulement français'}}
+    };
+    const loader = async (language: string) => languages[language] ?? {};
+
+    it('falls back to the fallbackLanguage from init() when a key is missing in the active language', async () => {
+        TranslateService.init(loader, 'en');
+        await TranslateService.use('de');
+        expect(TranslateService.translate('app.shared')).toBe('Hallo');
+        expect(TranslateService.translate('app.onlyEn')).toBe('Only English');
+    });
+
+    it('prefers the fallbackLanguage given to use() over the one from init()', async () => {
+        TranslateService.init(loader, 'en');
+        await TranslateService.use('de', 'fr');
+        expect(TranslateService.translate('app.onlyFr')).toBe('Seulement français');
+        expect(TranslateService.translate('app.onlyEn')).toBe('app.onlyEn');
+    });
+
+    it('accepts a fallbackLanguage in use() without one in init()', async () => {
+        TranslateService.init(loader);
+        await TranslateService.use('de', 'en');
+        expect(TranslateService.translate('app.onlyEn')).toBe('Only English');
+    });
+
+    it('interpolates strings resolved from the fallback language', async () => {
+        TranslateService.init(loader, 'en');
+        await TranslateService.use('de');
+        expect(TranslateService.translate('app.greeting', {name: 'Sam'})).toBe('Hello Sam');
+    });
+
+    it('returns the identifier when the key is missing in active and fallback language', async () => {
+        TranslateService.init(loader, 'en');
+        await TranslateService.use('de');
+        expect(TranslateService.translate('app.missing')).toBe('app.missing');
+    });
+
+    it('returns the identifier when no fallback language is configured (old behavior)', async () => {
+        TranslateService.init(loader);
+        await TranslateService.use('de');
+        expect(TranslateService.translate('app.onlyEn')).toBe('app.onlyEn');
+    });
+
+    it('pre-loads the fallback language strings in use()', async () => {
+        const loadedLanguages: string[] = [];
+        TranslateService.init(async language => {
+            loadedLanguages.push(language);
+            return languages[language] ?? {};
+        }, 'en');
+        await TranslateService.use('de');
+        expect(loadedLanguages).toEqual(['de', 'en']);
+    });
+
+    it('does not load the fallback language when it equals the active language', async () => {
+        const loadedLanguages: string[] = [];
+        TranslateService.init(async language => {
+            loadedLanguages.push(language);
+            return languages[language] ?? {};
+        }, 'en');
+        await TranslateService.use('en');
+        expect(loadedLanguages).toEqual(['en']);
+    });
+
+    it('translateFromObject falls back to the active fallback language when none is provided', async () => {
+        TranslateService.init(loader, 'en');
+        await TranslateService.use('de');
+        expect(TranslateService.translateFromObject({en: 'Hello'})).toBe('Hello');
+        expect(TranslateService.translateFromObject({en: 'Hello', fr: 'Bonjour'}, 'fr')).toBe('Bonjour');
     });
 });
 

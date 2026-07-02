@@ -24,6 +24,17 @@ TranslateService.init(
     });
 ```
 
+Optionally provide a fallback language as second parameter. Whenever a translation is missing in the active language, it is looked up in the fallback language instead:
+
+```
+TranslateService.init(
+    language => {
+        // load and return translations for language here (e.g. fetch from a JSON file)
+    }, 'en-GB');
+```
+
+If no fallback language is set, the translation identifier itself is returned.
+
 <h1>Usage</h1>
 
 <h3>Set language:</h3>
@@ -35,6 +46,12 @@ The function is async and can be awaited if you want to avoid translation identi
 The translation identifier can be whatever string you want, but I suggest to stick to a standard like ISO639.
 ```
 await TranslateService.use('en-GB');
+```
+
+A fallback language can also be provided as optional second parameter to use(). It takes precedence over a fallback language set in init():
+
+```
+await TranslateService.use('de-DE', 'en-GB');
 ```
 
 <h3>Usage in lit-html:</h3>
@@ -120,6 +137,6 @@ Usage with the directive:
 translateObject(myTranslations);
 ```
 
-A fallback language identifier can be provided as second parameter to the directive.
+A fallback language identifier can be provided as second parameter to the directive. If omitted, the fallback language currently active in the `TranslateService` (set via init() or use()) is used.
 
 Use ```translateObjectUnsafeHTML(myTranslations)``` to interpret HTML in translation strings.
