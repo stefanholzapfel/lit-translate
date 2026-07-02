@@ -83,3 +83,6 @@ Starts with version 3, please see commit history for earlier changes.
 - Chore: Add exports to package.json
 - Chore: Change to strict mode
 - Chore(deps): Bump versions and upgrade lockfile
+
+## [3.6.1]
+- chore: allow deep imports
