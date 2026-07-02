@@ -71,3 +71,15 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.5.3]
 - Chore(deps): Bump versions
+
+## [3.6.0]
+- Feat: A fallback language can be provided at `init()` and `use()`
+- Feat: Add vitest for testing
+- Fix: `translateObject.directive` change detection
+- Fix: `translate.directive` interpolation change check
+- Fix: Add js extension to exports
+- Fix: Typo in `main` property in package.json
+- Chore: Switch to peerDependency use
+- Chore: Add exports to package.json
+- Chore: Change to strict mode
+- Chore(deps): Bump versions and upgrade lockfile
