@@ -14,11 +14,32 @@ class TranslateObjectDirective extends AsyncDirective {
     }
 
     render(translationsObject: TranslationsObject, fallbackLanguage?: string) {
-        if (this.translationsObject !== translationsObject || this.doEvaluate) {
+        if (this.translationsObjectChanged(translationsObject) || this.fallbackLanguage !== fallbackLanguage || this.doEvaluate) {
             this.doEvaluate = false;
+            // Store a shallow snapshot (not the reference) so a later in-place mutation
+            // of the same object is still detected by translationsObjectChanged().
+            this.translationsObject = { ...translationsObject };
+            this.fallbackLanguage = fallbackLanguage;
             return TranslateService.translateFromObject(translationsObject, fallbackLanguage);
         }
         return noChange;
+    }
+
+    protected translationsObjectChanged(translationsObject: TranslationsObject): boolean {
+        if (!this.translationsObject) {
+            return true;
+        }
+        const k1 = Object.keys(translationsObject);
+        const k2 = Object.keys(this.translationsObject);
+        if (k1.length !== k2.length) {
+            return true;
+        }
+        for (const key of k1) {
+            if (translationsObject[key] !== this.translationsObject[key]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     disconnected() {
@@ -31,7 +52,7 @@ class TranslateObjectDirective extends AsyncDirective {
 
     public evaluate(): void {
         this.doEvaluate = true;
-        this.setValue(this.render(this.translationsObject));
+        this.setValue(this.render(this.translationsObject, this.fallbackLanguage));
     }
 }
 
