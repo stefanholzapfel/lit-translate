@@ -11,7 +11,9 @@
   },
   "scripts": {
     "build": "rm -rf ./dist/ && tsc",
-    "publish_npm": "rm -rf ./dist/ && tsc && yarn publish"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "publish_npm": "yarn test && rm -rf ./dist/ && tsc && yarn publish"
   },
   "author": "Stefan Holzapfel",
   "license": "MIT",
