@@ -1,7 +1,5 @@
-export * from './translate.directive.js';
-export * from './translateUnsafeHTML.directive.js';
+// Root entry exposes only the core service and shared types.
+// Directives are intentionally NOT re-exported here so IDE auto-import
+// and bundlers resolve them via their dedicated subpaths,
+// e.g. `@stefanholzapfel/lit-translate/translateUppercase.js`.
 export * from './translate.service.js';
-export * from './translateUppercase.directive.js';
-export * from './translateLowercase.directive.js';
-export * from './translateObject.directive.js';
-export * from './translateObjectUnsafeHTML.directive.js';

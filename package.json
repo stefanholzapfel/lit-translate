@@ -1,6 +1,6 @@
 {
   "name": "@stefanholzapfel/lit-translate",
-  "version": "3.6.1",
+  "version": "4.0.0",
   "description": "A lightweight translation directive for Lit",
   "publishConfig": {
     "access": "public"
@@ -30,14 +30,39 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dist/*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
+    "./translate.js": {
+      "types": "./dist/translate.directive.d.ts",
+      "default": "./dist/translate.directive.js"
+    },
+    "./translateService.js": {
+      "types": "./dist/translate.service.d.ts",
+      "default": "./dist/translate.service.js"
+    },
+    "./translateUnsafeHTML.js": {
+      "types": "./dist/translateUnsafeHTML.directive.d.ts",
+      "default": "./dist/translateUnsafeHTML.directive.js"
+    },
+    "./translateUppercase.js": {
+      "types": "./dist/translateUppercase.directive.d.ts",
+      "default": "./dist/translateUppercase.directive.js"
+    },
+    "./translateLowercase.js": {
+      "types": "./dist/translateLowercase.directive.d.ts",
+      "default": "./dist/translateLowercase.directive.js"
+    },
+    "./translateObject.js": {
+      "types": "./dist/translateObject.directive.d.ts",
+      "default": "./dist/translateObject.directive.js"
+    },
+    "./translateObjectUnsafeHTML.js": {
+      "types": "./dist/translateObjectUnsafeHTML.directive.d.ts",
+      "default": "./dist/translateObjectUnsafeHTML.directive.js"
     }
   },
   "files": [

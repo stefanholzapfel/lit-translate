@@ -1,5 +1,5 @@
 # Changelog
-Starts with version 3, please see commit history for earlier changes.
+Starts with version 3, please check the commit history for earlier changes.
 
 ## [3.0.0]
 - Feature: **Interpolations** can now take **TemplateResults** and **DirectiveResults** and not only strings. This change requires a major version change since the API for interpolations has changed
@@ -86,3 +86,8 @@ Starts with version 3, please see commit history for earlier changes.
 
 ## [3.6.1]
 - chore: allow deep imports
+
+## [4.0.0]
+- **Breaking**: The package root (`.`) now only exports the core `TranslateService` and shared types. Directives are no longer re-exported from the root barrel and must be imported from their dedicated subpaths (e.g. `@stefanholzapfel/lit-translate/translateUppercase.js`). This forces IDE auto-import and bundlers to resolve each directive directly, avoiding eager loading of unused directives.
+- **Breaking**: Deep imports into `dist/` are no longer supported. Use the published subpath exports instead (see README).
+- Feat: Enforce explicit subpath exports for every directive and mark the package as side-effect-free (`"sideEffects": false`) for reliable tree-shaking.

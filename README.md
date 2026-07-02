@@ -7,9 +7,26 @@ A very basic and lightweight translation directive for Lit
 npm install @stefanholzapfel/lit-translate
 ```
 
+<h1>Imports</h1>
+
+The package root exposes only the core `TranslateService` and shared types. Each directive is published under its own subpath so that only the directives you actually use are loaded:
+
+```
+import { TranslateService } from '@stefanholzapfel/lit-translate';
+
+import { translate }                 from '@stefanholzapfel/lit-translate/translate.js';
+import { translateUnsafeHTML }        from '@stefanholzapfel/lit-translate/translateUnsafeHTML.js';
+import { translateUppercase }         from '@stefanholzapfel/lit-translate/translateUppercase.js';
+import { translateLowercase }         from '@stefanholzapfel/lit-translate/translateLowercase.js';
+import { translateObject }            from '@stefanholzapfel/lit-translate/translateObject.js';
+import { translateObjectUnsafeHTML }  from '@stefanholzapfel/lit-translate/translateObjectUnsafeHTML.js';
+```
+
+> Note (v4): Directives are no longer re-exported from the package root and deep imports into `dist/` are no longer supported. Import each directive from its subpath as shown above.
+
 <h1>Initialize the service</h1>
 
-Before using the directive register a "loader" with the service.
+Before using a directive register a "loader" with the service.
 
 The loader is an async function telling the translator how to load any specific language.
 
