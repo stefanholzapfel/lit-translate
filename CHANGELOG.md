@@ -91,3 +91,6 @@ Starts with version 3, please check the commit history for earlier changes.
 - **Breaking**: The package root (`.`) now only exports the core `TranslateService` and shared types. Directives are no longer re-exported from the root barrel and must be imported from their dedicated subpaths (e.g. `@stefanholzapfel/lit-translate/translateUppercase.js`). This forces IDE auto-import and bundlers to resolve each directive directly, avoiding eager loading of unused directives.
 - **Breaking**: Deep imports into `dist/` are no longer supported. Use the published subpath exports instead (see README).
 - Feat: Enforce explicit subpath exports for every directive and mark the package as side-effect-free (`"sideEffects": false`) for reliable tree-shaking.
+
+## [4.0.1]
+- Chore(package.json): remove types field

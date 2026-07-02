@@ -27,7 +27,6 @@
     "vitest": "^4.1.9"
   },
   "type": "module",
-  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "sideEffects": false,
