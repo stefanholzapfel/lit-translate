@@ -5,8 +5,8 @@ import {TranslateDirective} from './translate.directive.js';
 class TranslateUppercaseDirective extends TranslateDirective {
     render(identifier: string, interpolations?: Interpolations) {
         const val = super.render(identifier, interpolations);
-        return (typeof val === 'symbol') ?
-            val : (val as string).toUpperCase();
+        return (typeof val === 'string') ?
+            val.toUpperCase() : val;
     }
 }
 

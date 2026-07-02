@@ -5,8 +5,8 @@ import {TranslateDirective} from './translate.directive.js';
 class TranslateLowercaseDirective extends TranslateDirective {
     render(identifier: string, interpolations?: Interpolations) {
         const val = super.render(identifier, interpolations);
-        return (typeof val === 'symbol') ?
-            val : (val as string).toLowerCase();
+        return (typeof val === 'string') ?
+            val.toLowerCase() : val;
     }
 }
 

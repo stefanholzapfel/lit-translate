@@ -1,14 +1,14 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
 import {Interpolations, TranslateService} from './translate.service.js';
 import {noChange, TemplateResult} from 'lit';
-import {DirectiveResult} from 'lit/directive';
+import {DirectiveResult, PartInfo} from 'lit/directive.js';
 
 class TranslateDirective extends AsyncDirective {
-    protected identifier;
-    protected interpolations;
+    protected identifier!: string;
+    protected interpolations?: Interpolations;
     protected doEvaluate = false;
 
-    constructor(props) {
+    constructor(props: PartInfo) {
         super(props);
         TranslateService.connectDirective(this);
     }

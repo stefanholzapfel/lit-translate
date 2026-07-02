@@ -1,12 +1,14 @@
 import {AsyncDirective, directive} from 'lit/async-directive.js';
 import {TranslateService, TranslationsObject} from './translate.service.js';
 import {noChange} from "lit";
+import {PartInfo} from 'lit/directive.js';
 
 class TranslateObjectDirective extends AsyncDirective {
-    protected translationsObject;
+    protected translationsObject!: TranslationsObject;
+    protected fallbackLanguage?: string;
     protected doEvaluate = false;
 
-    constructor(props) {
+    constructor(props: PartInfo) {
         super(props);
         TranslateService.connectDirective(this);
     }

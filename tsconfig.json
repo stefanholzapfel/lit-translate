@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "target": "es2021",
     "lib": ["DOM", "DOM.Iterable", "es2021"],
     "declaration": true,
     "declarationMap": true,
     "experimentalDecorators": true,
+    "rootDir": "src",
     "outDir": "dist"
   },
   "include": ["src/**/*.ts"]
